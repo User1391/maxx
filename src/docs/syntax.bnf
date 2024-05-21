@@ -1,0 +1,64 @@
+<statements> ::= <statement> <statements> | <end_of_statements>
+<end_of_statements> ::= " "
+<statement> ::= <variable_declaration> | <variable_mutation> | <function_declaration> | <while_loop> | <for_loop> | if_statement> | <elif_statement> | <else_statement> | <scope> | <function_call> <semicolon> | <ret_statement> | <break> <semicolon> 
+
+<variable_declaration> ::= <identifier> <type_definition> <equals> <expression> <semicolon>
+<variable_mutation> ::= <identifier> <equals> <expression> <semicolon>
+<function_declaration> ::= <identifier> <type_definition> <equals> <fn_type> <type_definition> <open_parenthesis> <function_parameters> <closed_parenthesis> <scope> 
+<while_loop> ::= <while> <open_parenthesis> <expression> <closed_parenthesis> <scope>
+<for_loop> ::= <for> <for_header> <scope>
+<if_statement> ::= <if> <open_parenthesis> <expression> <closed_parenthesis> <scope>
+<elif_statement> ::= <elif> <open_parenthesis> <expression> <closed_parenthesis> <scope> 
+<else_statement> ::= <else> <scope>
+<scope> ::= <open_curly> <statements> <closed_curly>
+<function_call> ::= <identifier> <open_parenthesis> <function_arguments> <closed_parenthesis>
+<ret_statement> ::= <ret> <expression> <semicolon> | <ret> <semicolon>
+
+<expression> ::= <term> <expression_continuation>
+<function_parameters> ::= <identifier> <type_definition> <comma> <function_parameters> | <identifier> | <no_param>
+<no_param> ::= " "
+<for_header> ::= <open_parenthesis> <identifier> <type_definition> <equals> <expression> <semicolon> <expression> <identifier> <equals> <expression> <closed_parenthesis>
+<function_arguments> ::= <expression> <call_continuation> | <no_arguments>
+<call_continuation> ::= <comma> <function_arguments> | <no_arguments>
+<no_arguments> ::= " "
+
+<term> ::= <open_parenthesis> <expression> <closed_parenthesis> | <minus> <expression> | <not> <expression> | <type_definition> <expression> | <identifier>
+<expression_continuation> ::= <operator> <expression> | <end_of_expression>
+<end_of_expression> ::= " "
+<operator> ::= <plus> | <minus> | <times> | <divide> | <mod> | <and> | <or> | <equal> | <not_equal> | <gt> | <lt> | <geq> | <leq>
+
+<type_definition> ::= "[ " <type> "] " 
+<type> ::= <int_type> | <fn_type> | <any_type>
+
+<equals> ::= "= "
+<equal> ::= "== "
+<not_equal> ::= "!= "
+<plus> ::= "+ "
+<minus> ::= "- "
+<times> ::= "* "
+<divide> ::= "/ "
+<mod> ::= "% "
+<and> ::= "&& "
+<or> ::= "|| "
+<gt> ::= "> "
+<lt> ::= "< "
+<geq> ::= ">= "
+<leq> ::= "<= "
+<open_parenthesis> ::= "( "
+<closed_parenthesis> ::= ") "
+<open_curly> ::= "{ "
+<closed_curly> ::= "} "
+<semicolon> ::= "; "
+<comma> ::= ", "
+<ret> ::= "return "
+<int_type> ::= "int "
+<fn_type> ::= "fn "
+<any_type> ::= "_ "
+<while> ::= "while "
+<for> ::= "for "
+<if> ::= "if "
+<else> ::= "else "
+<elif> ::= <else> <if> | "elif "
+<break> ::= "break "
+
+<identifier> ::= "<identifier> "
