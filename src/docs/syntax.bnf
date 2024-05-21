@@ -4,7 +4,7 @@
 
 <variable_declaration> ::= <identifier> <type_definition> <equals> <expression> <semicolon>
 <variable_mutation> ::= <identifier> <equals> <expression> <semicolon>
-<function_declaration> ::= <identifier> <type_definition> <equals> <fn_type> <type_definition> <open_parenthesis> <function_parameters> <closed_parenthesis> <scope> 
+<function_declaration> ::= <identifier> <type_definition> <equals> <type_definition> <open_parenthesis> <function_parameters> <closed_parenthesis> <scope> 
 <while_loop> ::= <while> <open_parenthesis> <expression> <closed_parenthesis> <scope>
 <for_loop> ::= <for> <for_header> <scope>
 <if_statement> ::= <if> <open_parenthesis> <expression> <closed_parenthesis> <scope>
