@@ -1,0 +1,6 @@
+main [_] = [int] () {
+  x [int] = 12;
+  if (x > 10) {
+    return 4;
+  }
+}
