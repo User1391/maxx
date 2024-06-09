@@ -1,6 +1,6 @@
 <statements> ::= <statement> <statements> | <end_of_statements>
 <end_of_statements> ::= " "
-<statement> ::= <variable_declaration> | <variable_mutation> | <function_declaration> | <while_loop> | <for_loop> | if_statement> | <elif_statement> | <else_statement> | <scope> | <function_call> <semicolon> | <ret_statement> | <break> <semicolon> 
+<statement> ::= <variable_declaration> | <variable_mutation> | <function_declaration> | <while_loop> | <for_loop> | <if_statement> | <elif_statement> | <else_statement> | <scope> | <function_call> <semicolon> | <ret_statement> | <break> <semicolon> 
 
 <variable_declaration> ::= <identifier> <type_definition> <equals> <expression> <semicolon>
 <variable_mutation> ::= <identifier> <equals> <expression> <semicolon>
@@ -25,7 +25,7 @@
 <term> ::= <open_parenthesis> <expression> <closed_parenthesis> | <minus> <expression> | <not> <expression> | <type_definition> <expression> | <identifier>
 <expression_continuation> ::= <operator> <expression> | <end_of_expression>
 <end_of_expression> ::= " "
-<operator> ::= <plus> | <minus> | <times> | <divide> | <mod> | <and> | <or> | <equal> | <not_equal> | <gt> | <lt> | <geq> | <leq>
+<operator> ::= <plus> | <minus> | <times> | <divide> | <mod> | <and> | <or> | <equal> | <not> | <not_equal> | <gt> | <lt> | <geq> | <leq>
 
 <type_definition> ::= "[ " <type> "] " 
 <type> ::= <int_type> | <fn_type> | <any_type>
@@ -37,6 +37,7 @@
 <minus> ::= "- "
 <times> ::= "* "
 <divide> ::= "/ "
+<not> ::= "! "
 <mod> ::= "% "
 <and> ::= "&& "
 <or> ::= "|| "
