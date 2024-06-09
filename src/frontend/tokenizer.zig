@@ -1,6 +1,7 @@
 // lots of insight from https://mitchellh.com/zig/tokenizer
 const std = @import("std");
 const types = @import("token_types.zig");
+const cm = @import("structs/CharMap.zig");
 
 // set up errors
 const TokenizerError = error{
@@ -29,27 +30,68 @@ pub fn deinit(self: *Self) void {
     self.tokens.deinit();
 }
 
+const State = enum {
+    NONE,
+    INT,
+    KEYWORD,
+    IDENTIFIER,
+};
+
+const single_char_tokens = [_]Symbol{
+    Symbol.EQUALS,
+    Symbol.PLUS,
+    Symbol.MINUS,
+    Symbol.TIMES,
+    Symbol.DIVIDE,
+    Symbol.MOD,
+    Symbol.GT,
+    Symbol.LT,
+    Symbol.OPEN_PARENTHESIS,
+    Symbol.CLOSED_PARENTHESIS,
+    Symbol.OPEN_CURLY,
+    Symbol.CLOSED_CURLY,
+    Symbol.SEMICOLON,
+    Symbol.COMMA
+};
+
+const single_char_chars = [_]u8{
+    '=',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '>',
+    '<',
+    '(',
+    ')',
+    '{',
+    '}',
+    ';',
+    ','
+};
+
+var token_associator = cm.CharMap(Symbol){};
+
+for (single_char_chars, single_char_tokens) |char, sym| {
+    token_associator.put(char, sym);
+}
+
 pub fn tokenize(self: *Self, text: []const u8) !void {
     var ln: u32 = 1;
     var cn: u32 = 1;
+    
+    var space_state: State = State.NONE; 
 
     for (text) |char| {
         
+        switch (char) {
+            ' ' => { 
+                cn += 1;
+                continue; 
+            },
+
+        } 
     }
 }
 
-
-
-
-test "Tokenize Example Code" {
-    var lexer = Self.init(std.heap.GeneralPurposeAllocator);
-    defer lexer.deinit();
-
-    try lexer.tokenize("varName[int] = 24;");
-
-    try std.testing.expectEqual(lexer.tokens.items.len, 5);
-
-
-
-
-}
