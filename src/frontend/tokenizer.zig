@@ -54,16 +54,21 @@ pub fn tokenize(self: *Self, text: []const u8) !void {
     var ln: u32 = 1;
     var cn: u32 = 1;
 
+    var ln_st: u32 = 1;
+    var cn_st: u32 = 1;
+
     var space_state: State = State.NONE;
 
     var curToken: Token = undefined;
+
+    // Create allocation for char inputs
+    var char_list = ArrayList(u8).init(self.allocator);
+    defer char_list.deinit();
 
     for (text, 0..) |char, curIdx| {
         _ = curIdx;
         ln = 1;
 
-        // TODO modify the way we store the content in the token struct
-        // need to create some allocated memory that can be pointed to
         // TODO figure out how to distinguish between keyword and identifier
         // look at online examples!
 
@@ -77,7 +82,7 @@ pub fn tokenize(self: *Self, text: []const u8) !void {
                         continue;
                     },
                     else => {
-                        // all other cases
+                        // TODO enter for all other cases
 
                         // now we can check the single char tokens
                         if (self.token_associator.get(char)) |tok| {
@@ -87,11 +92,18 @@ pub fn tokenize(self: *Self, text: []const u8) !void {
                         }
 
                         // make sure to do check for identifier before this
+                        else if (ascii.isAlphabetic(char)) {
+                            space_state = State.IDENTIFIER;
+                            ln_st = ln;
+                            cn_st = cn;
+                        }
                         // as there can be digits in variable names (just not first char)
                         else if (ascii.isDigit(char)) {
                             // if it's a number, keep going until there's a space
                             space_state = State.INT;
-                            curToken = Token{ .token_type = Symbol.INT, .content = char, .cc_start = cn, .cc_end = undefined, .cln_start = ln, .cln_end = undefined };
+                            ln_st = ln;
+                            cn_st = cn;
+                            char_list.append(char);
                         }
                         // all the normal else cases are done, add to character pos
                         cn += 1;
@@ -103,9 +115,7 @@ pub fn tokenize(self: *Self, text: []const u8) !void {
                 if (!ascii.isDigit(char)) {
                     // we have reached the end of our number
                     // there isn't any content to add btw
-                    curToken.cc_end = cn - 1;
-                    curToken.cln_end = ln;
-                    self.tokens.append(curToken);
+                    self.tokens.append(Token{ .token_type = Token.INT, .content = char_list.items, .cc_start = cn_st, .cc_end = cn - 1, .cln_start = ln_st, .cln_end = ln });
 
                     curToken = undefined;
                     space_state = State.NONE;
@@ -118,12 +128,11 @@ pub fn tokenize(self: *Self, text: []const u8) !void {
                         self.tokens.append(curToken);
                     }
                 } else {
-                    // just add the ascii number to the content
-                    // NOTE this likely won't work, suggested to use an arraylist to store content
-                    curToken.content = curToken.content + char;
+                    try char_list.append(char);
                 }
                 cn += 1;
             },
+            State.IDENTIFIER => {},
         }
     }
 }
