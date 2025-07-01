@@ -14,7 +14,7 @@
 <function_call> ::= <identifier> <whitespace>* <open_parenthesis> <whitespace>* <function_arguments> <whitespace>* <close_parenthesis>
 <ret_statement> ::= <ret> <whitespace>* <expression> <whitespace>* <semicolon> | <ret> <whitespace>* <semicolon>
 
-<expression> ::= <unary_operator> <whitespace>* <expression>  | <expression> <whitespace>* <binary_operator> <whitespace>* <expression> | <open_parenthesis> <whitespace>* <expression> <whitespace>* <close_parenthesis> | <identifier>
+<expression> ::= <unary_operator> <whitespace>* <expression>  | <expression> <whitespace>* <binary_operator> <whitespace>* <expression> | <expression> <whitespace>* "?" <whitespace>* <expression> <whitespace>* ":" <whitespace>* <expression> | <open_parenthesis> <whitespace>* <expression> <whitespace>* <close_parenthesis> | <identifier>
 <function_parameters> ::= <identifier> <whitespace>* <type_definition> <whitespace>* <comma> <whitespace>* <function_parameters> | <identifier> | <no_param>
 <no_param> ::= " "
 <for_header> ::= <open_parenthesis> <whitespace>* <identifier> <whitespace>* <type_definition> <whitespace>* <equals> <whitespace>* <expression> <whitespace>* <semicolon> <whitespace>* <expression> <whitespace>* <identifier> <whitespace>* <equals> <whitespace>* <expression> <whitespace>* <close_parenthesis>
@@ -26,7 +26,7 @@
 <binary_operator> ::= <plus> | <minus> | <times> | <divide> | <mod> | <and> | <or> | <equal> | <not_equal> | <gt> | <lt> | <geq> | <leq>
 
 <type_definition> ::= "[" <whitespace>* <type> <whitespace>* "]" 
-<type> ::= <int_type> | <fn_type> | <any_type>
+<type> ::= <int_type> | <fn_type> | <type_type | <any_type>
 
 <equals> ::= "="
 <equal> ::= "=="
@@ -52,6 +52,7 @@
 <ret> ::= "return"
 <int_type> ::= "int"
 <fn_type> ::= "fn"
+<type_type> ::= "type"
 <any_type> ::= "_"
 <while> ::= "while"
 <for> ::= "for"
@@ -59,6 +60,11 @@
 <else> ::= "else"
 <elif> ::= <else> <whitespace>+ <if> | "elif "
 <break> ::= "break "
+
+<literal> ::= <int_lit> | <bool_lit> | <string_lit>
+<int_lit> ::= ["-"]? [0-9]+
+<bool_lit> ::= "true" | "false"
+<string_lit> ::= "\"" ([^"\n] | "\\\"")* "\""
 
 <letter> ::= [a-z] | [A-Z]
 <whitespace> ::= " " | "\t" | "\n"
