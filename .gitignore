@@ -1,2 +1,40 @@
-zig-cache
-zig-out
+# Build artifacts
+/build/
+/CMakeFiles/
+/Makefile
+/CMakeCache.txt
+/cmake_install.cmake
+
+# Generated parser code
+/generated/
+!generated/*.g4  # Allow grammar definition in same dir if you want
+
+# Editor / OS junk
+*.swp
+*.swo
+*.DS_Store
+*.~ 
+*#
+
+# Binaries
+/maxx
+*.exe
+*.out
+*.o
+*.obj
+
+# Logs / temp
+*.log
+
+# Backup files
+*~
+
+# CLion / VSCode / JetBrains
+.idea/
+.vscode/
+*.iml
+
+# Antlr artifacts (if in grammar dir)
+grammar/*.interp
+grammar/*.tokens
+
